@@ -1,38 +1,27 @@
 import "./styles/game-board.css";
-import { Images } from "../assets/images";
+import { useState, forwardRef } from 'react';
 
-const initialFishes = [
-  {
-    name: "trout",
-    url: Images.trout,
-  },
-  {
-    name: "salmon",
-    url: Images.salmon,
-  },
-  {
-    name: "tuna",
-    url: Images.tuna,
-  },
-  {
-    name: "shark",
-    url: Images.shark,
-  },
-];
+export const GameBoard = forwardRef(({ props: { answersLeft, currentFishToName, handleGuess } }, ref) => {
+  const [guess, setGuess] = useState('');
 
-export const GameBoard = () => {
-  const nextFishToName = initialFishes[0];
+  const handleInput = ({ target: { value } }) => setGuess(value);
+
+  const guessFish = (e, guess) => {
+    e.preventDefault();
+    handleGuess(guess);
+    setGuess('');
+  };
 
   return (
     <div id="game-board">
       <div id="fish-container">
-        <img src={nextFishToName.url} alt={nextFishToName.name} />
+        <img src={currentFishToName.url} alt={currentFishToName.name} />
       </div>
-      <form id="fish-guess-form" onSubmit={(e) => {}}>
+      <form id="fish-guess-form" onSubmit={(e) => guessFish(e, guess)}>
         <label htmlFor="fish-guess">What kind of fish is this?</label>
-        <input type="text" name="fish-guess" />
-        <input type="submit" />
+        <input ref={ref} type="text" name="fish-guess" value={guess} onChange={(e) => handleInput(e)} />
+        <input type="submit" disabled={!answersLeft.includes(guess)} />
       </form>
     </div>
   );
-};
+});

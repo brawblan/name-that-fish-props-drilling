@@ -1,12 +1,16 @@
-const correctCount = 0;
-const totalCount = 0;
-export const FinalScore = () => (
-  <div id="final-score">
-    <h1>Your Final Score Was</h1>
-    <div id="score">
-      <p>{correctCount}</p>
-      <hr />
-      <p>{totalCount}</p>
+import "../Components/styles/final-score.css";
+
+export const FinalScore = ({ props: { incorrectCount, correctCount } }) => {
+  const totalCount = incorrectCount + correctCount;
+
+  return (
+    <div id="final-score">
+      <h1>Your Final Score Was</h1>
+      <div id="score">
+        <p>{correctCount}</p>
+        <hr />
+        <p>{totalCount}</p>
+      </div>
     </div>
-  </div>
-);
+  );
+};
