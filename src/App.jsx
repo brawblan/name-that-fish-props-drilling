@@ -16,12 +16,10 @@ function App() {
   const [currentFishToName, setCurrentFishToName] = useState(fishInfo[0]);
 
   const handleCount = (guess) => {
-    switch (guess === currentFishToName.name) {
-      case true: setCorrectCount(correctCount + 1);
-        break;
-      case false: setIncorrectCount(incorrectCount + 1);
-        break;
-      default: null;
+    if (guess === currentFishToName.name) {
+      setCorrectCount(correctCount + 1);
+    } else {
+      setIncorrectCount(incorrectCount + 1);
     }
   };
 
